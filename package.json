@@ -1,0 +1,14 @@
+{
+  "name": "airline-price-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "跟日期同航線比較各航空公司機票票價，並可將航班加入監察名單追蹤價格走勢",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

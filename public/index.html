@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>機票票價追蹤</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>機票票價追蹤</h1>
+    <p class="subtitle">跟日期同航線比較各航空公司票價，揀心水航班加入監察名單</p>
+  </header>
+
+  <main>
+    <section class="card" id="search-card">
+      <h2>搜尋航班</h2>
+      <form id="search-form">
+        <div class="field-row">
+          <label class="radio">
+            <input type="radio" name="tripType" value="oneway" checked />
+            單程
+          </label>
+          <label class="radio">
+            <input type="radio" name="tripType" value="roundtrip" />
+            來回
+          </label>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="origin">出發地（機場代碼）</label>
+            <input type="text" id="origin" maxlength="3" placeholder="HKG" required />
+          </div>
+          <div class="field">
+            <label for="destination">目的地（機場代碼）</label>
+            <input type="text" id="destination" maxlength="3" placeholder="NRT" required />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="departDate">出發日期</label>
+            <input type="date" id="departDate" required />
+          </div>
+          <div class="field" id="return-field" hidden>
+            <label for="returnDate">回程日期</label>
+            <input type="date" id="returnDate" />
+          </div>
+        </div>
+
+        <button type="submit" class="primary">搜尋票價</button>
+      </form>
+      <p class="error" id="search-error" hidden></p>
+    </section>
+
+    <section class="card" id="results-card" hidden>
+      <div class="card-header">
+        <h2>票價比較結果</h2>
+        <button type="button" class="secondary" id="add-selected-btn" disabled>加入監察名單（已選 0）</button>
+      </div>
+      <div class="table-scroll">
+        <table id="results-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>航空公司</th>
+              <th>航班編號</th>
+              <th>時長</th>
+              <th>經停</th>
+              <th>價錢 (HKD)</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="watchlist-card">
+      <div class="card-header">
+        <h2>監察名單</h2>
+        <button type="button" class="secondary" id="refresh-all-btn">全部重新整理</button>
+      </div>
+      <div class="table-scroll">
+        <table id="watchlist-table">
+          <thead>
+            <tr>
+              <th>航線</th>
+              <th>日期</th>
+              <th>航空公司</th>
+              <th>現時價錢</th>
+              <th>走勢</th>
+              <th>最後更新</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="watchlist-body"></tbody>
+        </table>
+      </div>
+      <p class="empty-hint" id="watchlist-empty">仲未有監察緊嘅航班，去上面搜尋並揀選航班加入啦。</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>價錢由模擬資料產生，僅供展示用途。想接駁真實票價，請見 README 內 Amadeus API 教學。</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
